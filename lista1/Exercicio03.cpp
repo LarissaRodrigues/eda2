@@ -1,6 +1,6 @@
 //Modifique o código da busca binária, trocando o cálculo dos índices inferiores e superiores de modo a obter uma busca por interpolação. 
 
-//#include <iostream>
+
 
 #include<stdio.h>
 #include<stdlib.h>
