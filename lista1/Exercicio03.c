@@ -14,7 +14,9 @@ int main(){
 
     printf("\n Informe qual o valor deseja encontrar no vetor.");
     scanf("%d", &x);
+    
    	meio = inf +((sup - inf)* (x- vetor[inf])/(vetor[sup]-vetor[inf]));
+   	
     for(aux=0; aux<10; aux++){
       if(meio == vetor[aux]){
       	printf("O valor foi achado em %d", aux+1);
