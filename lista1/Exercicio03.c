@@ -6,9 +6,9 @@
 int main(){
 	
    int vector[size_vector],count;
-   int inf = 1;
-   int sup = 10;
-   int meio, aux, x, op;
+   int less = 1;
+   int upper = 10;
+   int middle, aux, value, option;
    
    do{
  
@@ -18,30 +18,27 @@ int main(){
    }
 
     printf("\n Informe qual o valor deseja encontrar no vetor.");
-    scanf("%d", &x);
+    scanf("%d", &value);
     
-   	meio = inf +((sup - inf)* (x- vector[inf])/(vector[sup]-vector[inf]));
+   	middle = less +((upper - less)* (value- vector[less])/(vector[upper]-vector[less]));
    	
     for(aux=0; aux<size_vector; aux++){
-      if(meio == vector[aux]){
+      if(middle == vector[aux]){
       	printf("O valor foi achado em %d", aux+1);
       }
-      if(meio > x){
-      	sup=meio-1;
-      	 meio = inf +((sup - inf)* (x- vector[inf])/(vector[sup]-vector[inf]));
+      if(middle > value){
+      	upper = middle-1;
+      	middle = less +((upper - less)* (value- vector[less])/(vector[upper]-vector[less]));
       }
-      if(meio < x){
-        inf= meio+1;
-        meio = inf +(sup - inf)* (x- vector[inf])/(vector[sup]-vector[inf]);
+      if(middle < value){
+        less= middle + 1;
+        middle = less +((upper - less)* (value- vector[less])/(vector[upper]-vector[less]));
       } 
     }
      
- printf(" \n Se deseja realizar outra busca digite 1. ");
- scanf ("%d", &op);
-    } while(op == 1);
-
-    
-    
+      printf(" \n Se deseja realizar outra busca digite 1. ");
+      scanf ("%d", &option);
+  } while(option == 1);
 
 	return 0;
 }
