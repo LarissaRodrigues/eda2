@@ -1,45 +1,60 @@
-//Modifique o código da busca binária, trocando o cálculo dos índices inferiores e superiores de modo a obter uma busca por interpolação. 
 
-
-
-#include<stdio.h>
-#include<stdlib.h>
-//const int size_table = 10;
-
-
+#include <time.h> 
+#include <iostream>
+const int size_vector = 10;
+using namespace std;
+ 
 int main(){
 	
-   int vetor[10],cont;
-   int inf = 1;
-   int sup = 10;
-   int meio, aux, x;
-	
-   for(cont=0; cont<10; cont++){
-   	 vetor[cont]= cont;
-   	 printf("\n %d", vetor[cont]);
+   int vector[size_vector],count;
+   int less = 1;
+   int upper = 10;
+   int middle, aux;
+   int value, option;
+   clock_t start, end;
+   float result_time, result;
+   
+   do{
+ 
+   for(count=0; count<size_vector; count++){
+   	 vector[count]= count;
+   	 cout << " "<<vector[count] <<endl;
+  
    }
 
-    printf("\n Informe qual o valor deseja encontrar no vetor.");
-    scanf("%d", &x);
+     cout << "Informe um valor desejado"<<endl;
+     cin >> value;
     
-    //  meio = (inf+sup)/2;
-    meio = (inf +(sup - inf))*((x- vetor[inf])/(vetor[sup]-vetor[inf]));
-	   
-    for(aux=0; aux<10; aux++){
-      if(meio == vetor[aux]){
-      	printf("O valor foi achado em %d", aux+1);
+   	middle = less +((upper - less)* (value- vector[less])/(vector[upper]-vector[less]));
+   	
+   	start = clock();
+   	
+    for(aux=0; aux<size_vector; aux++){
+      if(middle == vector[aux]){
+      	cout << "O valor desejado foi achado na posição"<<aux+1<<endl;
       }
-      if(meio > x){
-      	sup=meio-1;
-      	 meio = inf +(sup - inf)* (x- vetor[inf])/(vetor[sup]-vetor[inf]);
+      if(middle > value){
+      	upper = middle-1;
+      	middle = less +((upper - less)* (value- vector[less])/(vector[upper]-vector[less]));
       }
-      if(meio < x){
-        inf= meio-1;
-        meio = inf +(sup - inf)* (x- vetor[inf])/(vetor[sup]-vetor[inf]);
-      }
-
+      if(middle < value){
+        less= middle + 1;
+        middle = less +((upper - less)* (value- vector[less])/(vector[upper]-vector[less]));
+      } 
     }
+ 
+    end = clock(); 
     
-	system("pause");
+    result_time = end-start;
+    result =  ((float)result_time)/CLOCKS_PER_SEC;
+    
+
+     cout << "O tempo utilizado para a busca foi"<<result<<endl;
+  
+      cout << "Se deseja continuar a execução digite 1"<<endl;
+      cin >> option;	 
+      
+  } while(option == 1);
+
 	return 0;
 }

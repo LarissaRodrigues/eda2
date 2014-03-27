@@ -2,132 +2,106 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+const int size_vetor = 18;
+const int relative_size_vetor = 17;
+#define find 1
+#define dont_find -1
+#define keep_looking 0
+
 using namespace std;
 
-typedef struct No{
-  char inferior;
-  char superior;
-  struct No *next;
-  struct No *previus;
-  int data;
-  }tNo;
-
-
-
-tNo *allocate_no(tNo *pointer){
-  return (tNo*) malloc(sizeof(1));
+int adjustment_inferior_position(int middle){
+  if(middle  + 1 > relative_size_vetor)
+    return 0;
+  else
+    return middle + 1;
 }
 
-int main(){/*{{{*/
-  tNo *sentinela;;
-  tNo *primeiro;
-  tNo *segundo;
-  tNo *terceiro;
-  tNo *quarto;
-  tNo *quinto;
-  tNo *sexto;
-  tNo *setimo;
-  tNo *oitavo;
-  tNo *iterator;
-  tNo *_sentinela = allocate_no(sentinela);
-  tNo *_primeiro= allocate_no(primeiro);
-  tNo *_segundo= allocate_no(segundo);
-  tNo *_terceiro= allocate_no(terceiro);
-  tNo *_quarto= allocate_no(quarto);
-  tNo *_quinto= allocate_no(quinto);
-  tNo *_sexto= allocate_no(sexto);
-  tNo *_setimo= allocate_no(setimo);
-  tNo *_oitavo= allocate_no(oitavo);
-  tNo *_iterator = allocate_no(iterator);
-/*}}}*/
-  
+int adjustment_superior_position(int middle){
+  if(middle - 1 < 0)
+    return relative_size_vetor;
+  else
+    return middle -  1;
+}
 
-  _sentinela->next = _primeiro;/*{{{*/
- _primeiro->next = segundo;
- _segundo->next = terceiro;
- _terceiro->next = quarto;
- _quarto->next = quinto;
- _quinto->next = sexto;
- _sexto->next = setimo;
- _setimo->next = oitavo;
- _oitavo->next = sentinela;
- iterator = sentinela;
-     
- /*{{{*/
+int calc_middle(int inferior_position,int superior_position){/*{{{*/
 
- _sentinela->previus= _oitavo;;/*{{{*/
- _primeiro->next = _segundo;
- _primeiro->previus= _sentinela;
- _segundo->next = _terceiro;
- _segundo->previus= _primeiro;
- _terceiro->next = _quarto;
- _terceiro->previus= _segundo;
- _quarto->next = _quinto;
- _quarto->previus= _terceiro;
- _quinto->next = _sexto;
- _quinto->previus = _quarto;
- _sexto->next = _setimo;
- _sexto->previus= _quinto;
- _setimo->next =_oitavo;
- _setimo->previus= _sexto;
- _oitavo->next = _sentinela;
- _oitavo->previus= _setimo;
-     /*}}}*/
-  
- _sentinela->data = 0;
- _primeiro->data = 12;
- _segundo->data = 25;
- _terceiro->data = 33;
- _quarto->data = 37;
- _quinto->data = 48;
- _sexto->data = 57;
- _setimo->data = 86;
- _oitavo->data = 92;
-     
-  int valor; cout << "Informe o valor que deseja buscar"<<endl; cin  >> valor;
-  
-  if(_quarto->data > valor){
-  _iterator = _quarto->previus;
-  bool achou = false;
-  _sentinela->inferior= 'I'; 
-  _iterator->superior= 'S';
-  while(true){
-    if (_iterator->data == valor){
-      achou = true;
-      break;
-    }
-    if(_iterator->inferior== 'I')
-      break;
-    _iterator = _iterator->previus;
+  if(inferior_position < superior_position)
+    return (superior_position + inferior_position)/2;
+  else{
+    //Dessa forma para uma lista circular, nunca cairemos em uma espaco vazio. 
+    int temp_pos = (superior_position + (inferior_position + size_vetor))/2;
+    if(temp_pos < size_vetor)
+      return temp_pos;
+    else
+      return temp_pos % size_vetor;
   }
-  if(achou == true){
-    cout <<"valor encontrado dentro da lista"<<endl;
+}
+/*}}}*/
+
+int search_value_in_vetor(int inferior_position,int superior_position,int middle,int *vetor,int value){/*{{{*/
+  if(vetor[inferior_position] == value) {
+    cout<<"Valor encontrado na posicao "<<inferior_position<<" do vetor"<<endl;
+    return find;
+  }
+  if(vetor[superior_position] == value){  
+    cout<<"valor encontrado na posicao"<<superior_position<<endl;
+    return find;
+  }
+  if(vetor[middle] == value){
+    cout<<"valor encontrado na posicao"<<middle<<endl;
+    return find;
+  }
+  if((inferior_position + 1 == middle && superior_position - 1 == middle) || inferior_position == superior_position ||  inferior_position + 1 == superior_position){
+    cout<<"valor nao encontrou"<<endl;
+    return dont_find;
   }
   else
-    cout <<"valor não encontrado"<<endl;
-  }
-  else{
-    _oitavo->superior= 'S';
-    _iterator = _quarto->next;
-    _iterator->inferior = 'I';
-    bool achou = false;
+    return keep_looking;
+}/*}}}*/
+
+
+int main(){
+  //a pos -1 indica um espaco vazio no vetor; 
+  int vetor[] = {200,235,300,-1,-1 ,-1 ,-1 ,40,44,47,50,59,70,73,101,121,134,195};
+  int inferior_position = 7;
+  int superior_position = 2;
+
+  int value;
+  cout << "informe o valor a ser buscado" << endl;
+  cin >> value;
+
+  int middle_position;  
+  middle_position = calc_middle(inferior_position,superior_position);
+
+  if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == keep_looking){
     while(true){
-      if (_iterator->data == valor){
-        achou = true;
-        break;
+
+      if(value <  vetor[middle_position]){/*{{{*/
+        superior_position = adjustment_superior_position(middle_position);
+        cout<<"sup : "<<superior_position<<" inf : "<<inferior_position;
+        middle_position = calc_middle(inferior_position,superior_position);
+        cout<<" middle: "<<vetor[middle_position]<<endl;
+        if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == find){
+          break;
+        }
+        if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == dont_find){
+          break;
+        }
+      }/*}}}*/
+
+      else{/*{{{*/
+        inferior_position = adjustment_inferior_position(middle_position);
+        cout<<"sup : "<<superior_position<<" inf : "<<inferior_position;
+        middle_position = calc_middle(inferior_position,superior_position);
+        cout<<" middle: "<<vetor[middle_position]<<endl;
+        if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == find){
+          break;
+        }
+        if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == dont_find){
+          break;
+        }
+      } /*}}}*/
     }
-    if(_iterator->superior == 'S')
-      break;
-    _iterator = _iterator->next;
   }
-    if(achou == true)
-      cout <<"valor encontrado dentro da lista"<<endl;
-    else
-      cout <<"valor não encontrado"<<endl;
-  }
-
-
-
-
-    } 
-
+}
