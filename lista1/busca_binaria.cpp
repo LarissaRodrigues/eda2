@@ -24,7 +24,7 @@ int adjustment_superior_position(int middle){
     return middle -  1;
 }
 
-int calc_middle(int inferior_position,int superior_position){/*{{{*/
+int calc_middle(int inferior_position,int superior_position){
 
   if(inferior_position < superior_position)
     return (superior_position + inferior_position)/2;
@@ -37,9 +37,8 @@ int calc_middle(int inferior_position,int superior_position){/*{{{*/
       return temp_pos % size_vetor;
   }
 }
-/*}}}*/
 
-int search_value_in_vetor(int inferior_position,int superior_position,int middle,int *vetor,int value){/*{{{*/
+int search_value_in_vetor(int inferior_position,int superior_position,int middle,int *vetor,int value){
   if(vetor[inferior_position] == value) {
     cout<<"Valor encontrado na posicao "<<inferior_position<<" do vetor"<<endl;
     return find;
@@ -58,7 +57,7 @@ int search_value_in_vetor(int inferior_position,int superior_position,int middle
   }
   else
     return keep_looking;
-}/*}}}*/
+}
 
 
 int main(){
@@ -77,7 +76,7 @@ int main(){
   if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == keep_looking){
     while(true){
 
-      if(value <  vetor[middle_position]){/*{{{*/
+      if(value <  vetor[middle_position]){
         superior_position = adjustment_superior_position(middle_position);
         cout<<"sup : "<<superior_position<<" inf : "<<inferior_position;
         middle_position = calc_middle(inferior_position,superior_position);
@@ -88,9 +87,9 @@ int main(){
         if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == dont_find){
           break;
         }
-      }/*}}}*/
+      }
 
-      else{/*{{{*/
+      else{
         inferior_position = adjustment_inferior_position(middle_position);
         cout<<"sup : "<<superior_position<<" inf : "<<inferior_position;
         middle_position = calc_middle(inferior_position,superior_position);
@@ -101,7 +100,7 @@ int main(){
         if(search_value_in_vetor(inferior_position,superior_position,middle_position,vetor,value) == dont_find){
           break;
         }
-      } /*}}}*/
+      } 
     }
   }
   system("pause");
