@@ -63,16 +63,9 @@
 	   	       
 	     }
 	   }	
-
-
-   void RemoverHeap(int vetorInserir[size_vector]){
-   
-   	
-   }		
 		
 	
    void inserirHeap(int vetorInserir[size_vector], int i){   
-	    // int vetorInserir[size_vector2];
 	     int value;
 	     int cont;
          int maior=0;
@@ -153,7 +146,7 @@ int main(){
             
         case 2:
          
-	        for(cont =0 ; cont<size_vector; cont++){
+	       for(cont =0 ; cont<size_vector; cont++){
 	            vetorInserir[cont] = 0;
 	       }
            inserirHeap(vetorInserir, i);            
