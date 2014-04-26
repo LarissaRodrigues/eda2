@@ -28,8 +28,6 @@
 			      	
 			     	 heapsort(vetor, size_vector);
 			    	 if(vetor[0] == maior){
-			    	 
-					 //if(vetor[pai]> vetor[filhoDireita] && vetor[pai] > vetor [filhoEsquerda]){
 		               break;
 		            } 
 			     }
