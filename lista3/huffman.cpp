@@ -6,7 +6,7 @@
 #include <algorithm>
  
 const int UniqueSymbols = 1 << CHAR_BIT;
-const char* SampleString = "ONCE UPON A TIME";
+const char* nameSerie = "ONCE UPON A TIME";
  
 typedef std::vector<bool> HuffCode;
 typedef std::map<char, HuffCode> HuffCodeMap;
@@ -83,7 +83,7 @@ void GenerateCodes(const INode* node, const HuffCode& prefix, HuffCodeMap& outCo
 int main(){
    
     int frequencies[UniqueSymbols] = {0};
-    const char* ptr = SampleString;
+    const char* ptr = nameSerie;
     while (*ptr != '\0')
         ++frequencies[*ptr++];
  
