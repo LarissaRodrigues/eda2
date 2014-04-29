@@ -12,22 +12,18 @@ typedef std::map<char, std::vector<bool> > HuffCodeMap;
 class INodeTree{ public:
     int f;
     virtual ~INodeTree() {}
- 
-protected:
-    INodeTree(int f) : f(f) {}
+    protected:INodeTree(int f) : f(f) {}
 };
  
-class InternalNodeTree : public INodeTree{  public:
+class InternalNodeTree : public INodeTree{public:
     INodeTree *left;
     INodeTree *right;
- 
     InternalNodeTree(INodeTree* c0, INodeTree* c1) : INodeTree(c0->f + c1->f), left(c0), right(c1) {}
     ~InternalNodeTree(){}
 };
  
 class LeafNode : public INodeTree{ public:
-    const char c;
- 
+    char c;
     LeafNode(int f, char c) : INodeTree(f), c(c) {}
 };
  
@@ -76,8 +72,7 @@ int main(){
    
     int frequenciesSymbols[symbols] = {0};
     const  char* stringDefined = nameOfSerie;
-    while (*stringDefined != '\0'){   
-                            
+    while (*stringDefined != '\0'){                               
     	 ++frequenciesSymbols[*stringDefined++];
     }
 	
