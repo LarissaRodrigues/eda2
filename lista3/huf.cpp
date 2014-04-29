@@ -18,8 +18,8 @@ protected:
 };
  
 class InternalNodeTree : public INodeTree{  public:
-    INodeTree *const left;
-    INodeTree *const right;
+    INodeTree *left;
+    INodeTree *right;
  
     InternalNodeTree(INodeTree* c0, INodeTree* c1) : INodeTree(c0->f + c1->f), left(c0), right(c1) {}
     ~InternalNodeTree(){}
@@ -62,11 +62,11 @@ void GenerateCodesHuffman(INodeTree* node, const std::vector<bool>& prefix, Huff
         outCodes[lf->c] = prefix;
     }
     else if (const InternalNodeTree* in = dynamic_cast<const InternalNodeTree*>(node)){
-        std::vector<bool> leftPrefix = prefix;  //Retorna uma referencia para um 
-        leftPrefix.push_back(false);         // Adiciona um novo elemento no final do vetor adicionando um false no final do vetor
-        GenerateCodesHuffman(in->left, leftPrefix, outCodes); // para o da esquerda ele coloca falso no final
+        std::vector<bool> leftPrefix = prefix;  
+        leftPrefix.push_back(false);        
+        GenerateCodesHuffman(in->left, leftPrefix, outCodes); 
  
-        std::vector<bool> rightPrefix = prefix; // para o da direita ele coloca verdadeiro no final
+        std::vector<bool> rightPrefix = prefix; 
         rightPrefix.push_back(true);
         GenerateCodesHuffman(in->right, rightPrefix, outCodes);
     }
@@ -75,9 +75,9 @@ void GenerateCodesHuffman(INodeTree* node, const std::vector<bool>& prefix, Huff
 int main(){
    
     int frequenciesSymbols[symbols] = {0};
-    const char* stringDefined = nameOfSerie;
-    while (*stringDefined != '\0'){   // Anda dentro da string ate ela terminar enquanto isso for verdadeiro ela inccrementa a frenquencia de acordo com a quantidade de 
-                            // letras iguais que vao aparecendo. Ele vai cada por casa da string
+    const  char* stringDefined = nameOfSerie;
+    while (*stringDefined != '\0'){   
+                            
     	 ++frequenciesSymbols[*stringDefined++];
     }
 	
