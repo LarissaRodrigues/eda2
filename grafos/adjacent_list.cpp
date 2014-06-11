@@ -1,57 +1,29 @@
 #include <iostream>
-#include <stdlib.h>
+#include <vector>
 
 using namespace std;
 
-typedef struct Node{
 
-  Node *neighbor;
-  int value;
-}node;
+vector<vector<int> > insert_vertex(vector<vector<int> > graph,int position,int vertex){
 
-
-node *allocate_node(int value){
-  node *new_node = (node *) malloc(1*sizeof(node));
-  new_node->value = value;
-  return new_node;
+  graph[position].push_back(vertex);
+  return graph;
 }
-
-
 
 int main(){
 
-  node *index_node[8];
-  index_node[1] = allocate_node(2);
-  index_node[1]->neighbor = allocate_node(3);
-  index_node[1]->neighbor->neighbor = allocate_node(3);
 
-  index_node[2] = allocate_node(1);
-  index_node[2]->neighbor = allocate_node(3);
-  index_node[2]->neighbor->neighbor = allocate_node(4);
-  index_node[2]->neighbor->neighbor->neighbor  = allocate_node(5);
-  
-  index_node[3] = allocate_node(1);
-  index_node[3]->neighbor = allocate_node(2);
-  index_node[3]->neighbor->neighbor = allocate_node(5);
-  index_node[3]->neighbor->neighbor->neighbor  = allocate_node(7);
-  index_node[3]->neighbor->neighbor->neighbor->neighbor  = allocate_node(8);
+  unsigned int num_v;
+  unsigned int num_e;
 
-  index_node[4] = allocate_node(2);
-  index_node[4]->neighbor = allocate_node(5);
+  cin >> num_v;
+  cin >> num_e;
 
-  index_node[5] = allocate_node(2);
-  index_node[5]->neighbor = allocate_node(3);
-  index_node[5]->neighbor->neighbor = allocate_node(4);
-  index_node[5]->neighbor->neighbor->neighbor  = allocate_node(6);
+  unsigned int vertex_1,vertex_2;
+  vector<vector<int> > graph;
 
-  index_node[6]->neighbor = allocate_node(5);
-
-  
-  index_node[7]->neighbor = allocate_node(3);
-  index_node[7]->neighbor->neighbor = allocate_node(8);
-
-
-  index_node[8]->neighbor = allocate_node(3);
-  index_node[8]->neighbor->neighbor = allocate_node(7);
+  while(cin >> vertex_1 >> vertex_2){
+    insert_vertex(graph,vertex_1,vertex_2);
+  }
 }
 
